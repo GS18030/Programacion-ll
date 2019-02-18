@@ -1,7 +1,9 @@
-//JosÈ Adolfo Guzm·n Solis
-//ProgramaciÛn II
+//Jos√© Adolfo Guzm√°n Solis
+//GS18030
+//Programaci√≥n II
 //Grupo 02 
 //Cadenas con punteros
+
 
 #include <iostream>
 #include <conio.h>
