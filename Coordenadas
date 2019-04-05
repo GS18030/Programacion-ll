@@ -1,0 +1,102 @@
+//JOSE ADOLFO GUZMAN SOLIS GS18030
+
+#include <iostream>
+#include <string>
+#include <queue>
+#include <conio.h>
+#include <windows.h>
+
+using namespace std;
+
+struct coor{
+        int x;
+        int y;
+        int z;
+    };   
+
+void p(){
+	
+}    
+
+int valid(int a){
+ 	if (cin.fail()||a<=0){
+ 		cin.clear();
+ 		cin.ignore();
+ 		cout<<"Error"<<endl;
+		system("pause>nul");
+		system ("cls"); 
+	 }
+	 return a;
+ }
+	 
+
+int main()
+{ 
+	queue<coor> cola; 
+	coor *ptr;		 
+	int op;			
+	int co;
+	do{	
+	do{		  
+	system("cls");   
+	cout<<"\t \t \t \tSISTEMA DE COORDENADAS \n"<<endl;
+	cout<<"1. Agregar coordenadas"<<endl;
+	cout<<"2. Mostrar coordenadas"<<endl;
+	cout<<"3. Mostrar promedio de coordenadas"<<endl;
+	cout<<"4. Salir"<<endl;
+	cout<<"					";
+	cin>>op;
+	valid(op);
+	}while (op<0 || op>5  );
+	switch (op){
+				case 1: system("cls");
+						coor aux;		
+						cout<<"Inserte valor de x: ";	
+						cin>>aux.x;
+						cout<<"Inserte valor de y: ";
+						cin>>aux.y;
+						valid (aux.y);
+						cout<<"Inserte valor de z: ";
+		            	cin>>aux.z;
+		            	valid (aux.z);
+				        cola.push(aux);		
+				        system("cls");
+				        cout<<"EXITO"<<endl;
+				        system("pause");
+		        		system("cls");
+		        		break;
+		        case 2: system("cls");
+		                ptr=&cola.front();
+						for(int i=0; i<cola.size(); i++){
+						coor auxi;				
+        		 		auxi=*ptr;
+		        		cout<<"	"<<"x: "<<auxi.x <<endl;
+		        		cout<<"	"<<"y: "<<auxi.y <<endl;
+		        		cout<<" "<<"z: "<<auxi.z <<endl;
+		        		ptr++;					
+        				}
+        				system("pause");
+		        		system("cls");
+						break;
+				case 3: system("cls");ptr=&cola.front();
+        				float xx;
+        				float ys;
+        				int zz;
+						for(co=0; co<cola.size(); co++){	
+						coor auxi;							
+        		 		auxi=*ptr;
+		        		xx=xx+auxi.x;
+		        		ys=ys+auxi.y;
+		        		zz=zz+auxi.z;
+		        		ptr++;			
+        				}
+        				cout<<"x promedio: "<<(xx/co) <<endl;
+        				cout<<"y promedio: "<<(ys/co) <<endl;
+        				cout<<"z promedio: "<<(zz/co) <<endl;
+        				system("pause");
+		        		system("cls");
+				case 4: break;
+					}
+	} while (op != 4);
+	return 0;
+}
