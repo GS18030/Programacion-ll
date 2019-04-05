@@ -1,0 +1,207 @@
+Jose Adolfo Guzman Solis GS18030
+
+#include <iostream>
+
+using namespace std;
+
+
+int valid(int a){
+ 	if (cin.fail()||a<=0){
+ 		cin.clear();
+ 		cin.ignore();
+ 		cout<<"Error"<<endl;
+		system("pause>nul");
+	 }
+
+return a;
+ }
+
+class infopaciente 
+	{
+		private:
+		    class Nodo 
+			{
+		    public:
+		        int correlativo;
+		        char lastname[20];
+		        char name[20]; 
+		        int age;
+		        char sexo[5];
+		        float peso;
+		        char enfermedad[10];
+		        Nodo *sig;
+		    };
+
+Nodo *raiz;
+Nodo *fondo; 
+
+public:
+    infopaciente();
+    ~infopaciente();
+    void buscar();
+    void insertar();
+    //int extraer();
+    void imprimir();
+};
+
+infopaciente::infopaciente(){
+    raiz = NULL;
+}
+
+
+void infopaciente::insertar(){
+    Nodo *nuevo;
+    nuevo = new Nodo();
+	cout<<"ingrese correlativo:";
+	cin>>nuevo->correlativo;
+	valid(nuevo->correlativo);
+	fflush(stdin);
+	cout<<"Digite los apellidos del paciente: ";
+    cin.getline(nuevo->lastname,20);
+    cout<<"Digite los nombres del paciente: ";
+    cin.getline(nuevo->name, 20);
+    cout<<"Ingrese la edad del paciente: ";
+    cin>>nuevo->age;
+    fflush(stdin);
+	cout<<"Sexo del paciente: ";
+    cin.getline(nuevo->sexo, 5);
+    fflush(stdin);
+    cout<<"Ingrese el peso del paciente: ";
+    cin>>nuevo->peso;
+    cout<<"Ingrese la enfermedad que padece: ";
+    cin.getline(nuevo->enfermedad, 10);
+    if (raiz == NULL){
+        raiz = nuevo;
+        nuevo->sig = NULL;
+    }
+    else{
+        nuevo->sig = raiz;
+        raiz = nuevo;
+    }
+}
+
+void infopaciente::imprimir(){
+    Nodo *reco = raiz;
+    cout << "INFORMACION DE LOS PACIENTES INGRESADOS \n";
+    while (reco != NULL){
+        cout << reco->correlativo << "-";
+        cout << reco->lastname << "-";
+        cout << reco->name << "-";
+        cout << reco->age << "-";
+        cout << reco->sexo << "-";
+        cout << reco->peso << "-";
+        cout << reco->enfermedad << "-";
+        reco = reco->sig;
+    }
+    cout << "\n";
+}
+
+/*int Pila::extraer(){
+    if (raiz != NULL){
+        int informacion = raiz;
+        Nodo *bor = raiz;
+        raiz = raiz->sig;
+        delete bor;
+        return informacion;
+    }
+    else{
+        cout<<"No hay mas datos en la pila..."<<endl;
+    }
+}*/
+
+//funcion implementada para buscar datos
+void infopaciente::buscar(){
+	
+	//verificamos si el nodo contiene datos
+	if (raiz != NULL){
+		//si tiene datos pasaremos a pedir el dato a buscar
+		int buscardatos;
+	    cout<<"Ingrese correlativo a buscar"<<endl;
+	    cin>>buscardatos;
+	    
+	    //comparamos el dato que ingreso con el primer dato del nodo
+	    if(buscardatos == raiz->correlativo){ 
+	    	//lo mostramos en pantalla
+            cout<<"Encontrado, el elemento es: "<<raiz->correlativo<<endl;
+		}
+		else{
+			//si no se encuentra mostramos esto
+			cout<<"El elemento ingresado no esta en la cola"<<endl;
+		}
+	}
+	else{
+		//si la pila no contiene  nada mostramos este mensaje
+		cout<<"La cola esta vacia...."<<endl;
+	}
+}
+
+infopaciente::~infopaciente(){
+    Nodo *reco = raiz;
+    Nodo *bor;
+    while (reco != NULL){
+        bor = reco;
+        reco = reco->sig;
+        delete bor;
+    }
+}
+
+//funcion menu encargada de pedir datos al usuario
+void menu(){
+	cout<<"Sistema de consultorio."<<endl;
+	cout<<"Ingrese una opcion."<<endl;
+    cout<<"1 - Agregar un nuevo paciente."<<endl;
+    cout<<"2 - Mostrar datos del paciente"<<endl;
+    //cout<<"3 - Extraer un elemento de la pila"<<endl;
+    cout<<"3 - Buscar un paciente"<<endl;
+    cout<<"4 - Salir"<<endl;
+}
+
+int main(){
+    infopaciente *consultorio;
+    consultorio= new infopaciente();
+    int opc;
+    
+    
+    do{
+		
+	    menu();
+	    cin>>opc;
+	    valid(opc);
+	    fflush(stdin);
+	    switch(opc){
+	    	
+	    	//INGRESO DE DATOS A LA PILA
+	    	case 1:
+	    		char res;
+	    		do{
+		    		
+		    		consultorio->insertar();
+		    		cout<<"Desea ingresar mas datos a la cola? (y/n)"<<endl;
+		    		cin>>res;
+		    		fflush(stdin);
+				}while(res == 'y' || res == 'Y');
+	    	break;
+	    	
+	    	//MOSTRAR LOS DATOS QUE ESTAN EN LA PILA
+	    	case 2:
+	    		consultorio->imprimir();
+	    	break;
+	    	
+	    	//ELIMINAR DATOS DE LA PILA
+	    	case 3:
+	    		consultorio->buscar();
+	    	break;
+	    	
+	    	//BUSCAR DATOS EN LA PILA
+	    	case 4:
+	    	break;
+	    	
+		}
+		system("pause");
+		system("cls");
+    }while(opc!=4);
+	
+	
+		
+    return 0;
+}
